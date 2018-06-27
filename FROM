@@ -1,0 +1,5 @@
+# FROM
+
+package 原始来源 github.com/aws/aws-lambda-go
+
+移除 AWS 相关特性并修改为无指定供应商特性。

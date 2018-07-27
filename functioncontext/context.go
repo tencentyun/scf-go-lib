@@ -6,12 +6,6 @@ import (
 	"strconv"
 )
 
-// LogGroupName is the name of the log group that contains the log streams of the current Function
-var LogGroupName string
-
-// LogStreamName name of the log stream that the current Function's logs will be sent to
-var LogStreamName string
-
 // FunctionName the name of the current Function
 var FunctionName string
 
@@ -22,8 +16,7 @@ var MemoryLimitInMB int
 var FunctionVersion string
 
 func init() {
-	LogGroupName = os.Getenv("LOG_GROUP_NAME")
-	LogStreamName = os.Getenv("LOG_STREAM_NAME")
+
 	FunctionName = os.Getenv("FUNCTION_NAME")
 	if limit, err := strconv.Atoi(os.Getenv("FUNCTION_MEMORY_SIZE")); err != nil {
 		MemoryLimitInMB = 0
@@ -60,7 +53,7 @@ type FunctionContext struct {
 // This prevents collisions with keys defined in other packages.
 type key struct{}
 
-// The key for a SCFContext in Contexts.
+// The key for a FunctionContext in Contexts.
 // Users of this package must use functioncontext.NewContext and functioncontext.FromContext
 // instead of using this key directly.
 var contextKey = &key{}
@@ -70,7 +63,7 @@ func NewContext(parent context.Context, lc *FunctionContext) context.Context {
 	return context.WithValue(parent, contextKey, lc)
 }
 
-// FromContext returns the SCFContext value stored in ctx, if any.
+// FromContext returns the FunctionContext value stored in ctx, if any.
 func FromContext(ctx context.Context) (*FunctionContext, bool) {
 	lc, ok := ctx.Value(contextKey).(*FunctionContext)
 	return lc, ok

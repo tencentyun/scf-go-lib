@@ -1,9 +1,11 @@
 package messages
 
 type PingRequest struct {
+
 }
 
 type PingResponse struct {
+
 }
 
 type InvokeRequest_Timestamp struct {

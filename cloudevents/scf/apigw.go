@@ -2,8 +2,8 @@ package scf
 
 // APIGatewayProxyRequest contains data coming from the API Gateway proxy in integration way
 type APIGatewayProxyRequest struct {
-	Path                  string                        `json:"path"`       // The url path be called
-	Query                 string                        `json:"query"`      // Query string in request
+	Path                  string                        `json:"path"`     // The url path be called
+	Query                 string                        `json:"query"`	  // Query string in request
 	HTTPMethod            string                        `json:"httpMethod"` // HTTP method
 	Headers               map[string]string             `json:"headers"`
 	QueryStringParameters map[string]string             `json:"queryStringParameters,omitempty"`
@@ -24,17 +24,58 @@ type APIGatewayProxyResponse struct {
 }
 
 // APIGatewayProxyRequestContext contains the information of service and api config in api gateway
-type APIGatewayProxyRequestContext struct {
-	ServiceName string                    `json:"serviceName"` // Service name in API Gateway Service
-	Path        string                    `json:"path"`        // Path define in API of Service
-	HTTPMethod  string                    `json:"httpMethod"`  // Method define in API of Service
-	RequestID   string                    `json:"requestId"`   //
-	Stage       string                    `json:"stage"`       // The stage be called
-	Identity    APIGatewayRequestIdentity `json:"identity"`    //
-	SourceIP    string                    `json:"sourceIp"`    // Source IP of caller
+type APIGatewayProxyRequestContext struct{
+	ServiceName  	string 				   		`json:"serviceName"`
+	Path         	string 				   		`json:"path"`
+	HTTPMethod   	string                    	`json:"httpMethod"`
+	RequestID    	string                 	  	`json:"requestId"`
+	Stage        	string                    	`json:"stage"`
+	Identity     	APIGatewayRequestIdentity 	`json:"identity"`
+	SourceIP	 	string                    	`json:"sourceIp"`
+	WebsocketEnable bool 						`json:"websocketEnable,omitempty"`
 }
 
 // APIGatewayRequestIdentity contains identity information for the request caller.
 type APIGatewayRequestIdentity struct {
-	SecretID string `json:"secretId,omitempty"`
+	SecretID     string `json:"secretId,omitempty"`
 }
+
+
+type APIGatewayWebSocketActionType string
+
+const (
+	Connecting 	APIGatewayWebSocketActionType = "connecting"
+	Closing 	APIGatewayWebSocketActionType = "closing"
+	DataSend 	APIGatewayWebSocketActionType = "data send"
+	DataRecv	APIGatewayWebSocketActionType = "data recv"
+)
+
+// APIGatewayWebSocketConnection contains websocket connecting info.
+type APIGatewayWebSocketConnection struct {
+	Action 					APIGatewayWebSocketActionType 		`json:"action"`
+	SecConnectionID 		string 		`json:"secConnectionID"`
+	SecWebSocketProtocol 	string 		`json:"secWebSocketProtocol"`
+	SecWebSocketExtensions 	string 		`json:"secWebSocketExtensions"`
+}
+
+// APIGatewayWebSocketAction contains websocket send and recv data or action info.
+type APIGatewayWebSocketAction struct {
+	Action 					APIGatewayWebSocketActionType 		`json:"action"`
+	SecConnectionID 		string 		`json:"secConnectionID"`
+	DataType			 	string 		`json:"dataType"`
+	Data				 	string 		`json:"data"`
+}
+
+// APIGatewayWebSocketConnectionRequest contains connection info send to cloud function
+type APIGatewayWebSocketConnectionRequest struct{
+	RequestContext	APIGatewayProxyRequestContext	`json:"requestContext"`
+	WebSocketConn	APIGatewayWebSocketConnection   `json:"websocket"`
+}
+
+// APIGatewayWebSocketConnectionResponse contains info need to response to api gateway
+type APIGatewayWebSocketConnectionResponse struct{
+	ErrNumber		int								`json:"errNo"`
+	ErrMesg			string							`json:"errMsg"`
+	WebSocketConn	APIGatewayWebSocketConnection   `json:"websocket"`
+}
+

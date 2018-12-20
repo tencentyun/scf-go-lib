@@ -1,9 +1,5 @@
 package scf
 
-import (
-	"time"
-)
-
 // COSEvent received as list
 type COSEvent struct {
 	Records []COSEventRecord `json:"Records"`
@@ -17,11 +13,10 @@ type COSEventRecord struct {
 
 
 type COSEventEntity struct {
-	EventName         string         	     `json:"eventName"`
-	EventVersion      string         	     `json:"eventVersion"`
-	EventSource       string        	     `json:"eventSource"`
-	EventTime         time.Time     	     `json:"eventTime"`
-
+	EventName         string                 `json:"eventName"`
+	EventVersion      string                 `json:"eventVersion"`
+	EventSource       string                 `json:"eventSource"`
+	EventTime         int64                  `json:"eventTime"`
 	EventQueue        string        	     `json:"eventQueue"`
 	RequestParameters COSRequestParameters 	 `json:"requestParameters"`
 	ReservedInfo      string 				 `json:"reservedInfo"`
@@ -29,7 +24,7 @@ type COSEventEntity struct {
 }
 
 type COSRequestParameters struct {
-	SourceIP 	string 				`json:"requestSourceIP"`
+	SourceIP 	string              `json:"requestSourceIP"`
 	Headers 	map[string]string   `json:"requestHeaders"`
 }
 
@@ -37,8 +32,8 @@ type COSRequestParameters struct {
 type COSEntity struct {
 	SchemaVersion   string    `json:"cosSchemaVersion"`
 	NotificationID  string    `json:"cosNotificationId"`
-	Bucket          COSBucket `json:"bucket"`
-	Object          COSObject `json:"object"`
+	Bucket          COSBucket `json:"cosBucket"`
+	Object          COSObject `json:"cosObject"`
 }
 
 type COSBucket struct {

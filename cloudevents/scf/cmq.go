@@ -22,6 +22,6 @@ type CMQEventEntity struct {
 	MsgID			 	string 		`json:"msgId"`
 	RequestID	 		string 		`json:"requestId"`
 	MsgBody			 	string 		`json:"msgBody"`
-	MsgTag		 		[]string 	`json:"msgTag"`
+	MsgTag		 		string 	`json:"msgTag"`
 }
 

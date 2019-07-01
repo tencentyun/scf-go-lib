@@ -37,8 +37,13 @@ func (fn *Function) Invoke(req *messages.InvokeRequest, response *messages.Invok
 	defer cancel()
 
 	lc := &functioncontext.FunctionContext{
-		RequestID:       req.RequestId,
+		RequestID:             req.RequestId,
 		InvokedFunctionUnique: req.InvokedFunctionUnique,
+		Namespace:             req.Namespace,
+		FunctionName:          req.FunctionName,
+		FunctionVersion:       req.FunctionVersion,
+		MemoryLimitInMb:       req.MemoryLimitInMb,
+		TimeLimitInMs:         req.TimeLimitInMs,
 	}
 
 	if len(req.ClientContext) > 0 {

@@ -41,12 +41,16 @@ type ClientContext struct {
 	Custom map[string]string `json:"custom"`
 }
 
-
 // FunctionContext is the set of metadata that is passed for every Invoke.
 type FunctionContext struct {
-	RequestID       	  string
+	RequestID             string
 	InvokedFunctionUnique string
-	ClientContext      	  ClientContext
+	ClientContext         ClientContext
+	Namespace             string
+	FunctionName          string
+	FunctionVersion       string
+	MemoryLimitInMb       int32
+	TimeLimitInMs         int32
 }
 
 // An unexported type to be used as the key for types in this package.

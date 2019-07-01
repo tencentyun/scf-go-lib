@@ -45,6 +45,36 @@ func main() {
 6. 在 main 函数中使用包内的 Start 函数启动入口函数
 
 
+## GO Context 使用说明
+
+```
+package main
+import (
+    "context"
+    "fmt"
+    "os"
+    "github.com/tencentyun/scf-go-lib/cloudfunction"
+    "github.com/tencentyun/scf-go-lib/functioncontext"
+)
+
+type DefineEvent struct {
+    // test event define
+    Key1 string `json:"key1"`
+    Key2 string `json:"key2"`
+}
+func hello(ctx context.Context, event DefineEvent) (string, error) {
+    lc, _ := functioncontext.FromContext(ctx)
+    fmt.Printf("ctx: %#v\n", lc) 
+    fmt.Printf("namespace: %s\n", lc.Namespace)
+    fmt.Printf("function name: %s\n", lc.FunctionName)
+    return fmt.Sprintf("Hello!"), nil 
+}
+func main() {
+    // Make the handler available for Remote Procedure Call by Cloud Function
+    cloudfunction.Start(hello)
+}
+```
+
 ## GO 环境编译说明
 
 使用指定 OS 及 ARCH 即可跨平台编译为二进制，随后通过 zip 工具打包二进制，生成可以上传的代码包。

@@ -1,11 +1,9 @@
 package messages
 
 type PingRequest struct {
-
 }
 
 type PingResponse struct {
-
 }
 
 type InvokeRequest_Timestamp struct {
@@ -16,10 +14,15 @@ type InvokeRequest_Timestamp struct {
 type InvokeRequest struct {
 	Payload               []byte
 	RequestId             string
-	TraceId   	          string
+	TraceId               string
 	Deadline              InvokeRequest_Timestamp
 	InvokedFunctionUnique string
 	ClientContext         []byte
+	Namespace             string
+	FunctionName          string
+	FunctionVersion       string
+	MemoryLimitInMb       int32
+	TimeLimitInMs         int32
 }
 
 type InvokeResponse struct {

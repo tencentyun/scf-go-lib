@@ -62,4 +62,3 @@ func StartHandler(handler Handler) {
 	rpc.Accept(lis)
 	log.Fatal("accept should not have returned")
 }
-

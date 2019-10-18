@@ -55,6 +55,8 @@ func (qs *APIGatewayQueryString) UnmarshalJSON(data []byte) error {
 	r := make(APIGatewayQueryString)
 	for k, v := range m {
 		switch v.(type) {
+		case bool:
+			r[k] = []string{}
 		case string:
 			r[k] = []string{v.(string)}
 		case []string:

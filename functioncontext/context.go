@@ -51,6 +51,7 @@ type FunctionContext struct {
 	FunctionVersion       string
 	MemoryLimitInMb       int32
 	TimeLimitInMs         int32
+        Environment           map[string]string
 }
 
 // An unexported type to be used as the key for types in this package.

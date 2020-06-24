@@ -23,6 +23,7 @@ type InvokeRequest struct {
 	FunctionVersion       string
 	MemoryLimitInMb       int32
 	TimeLimitInMs         int32
+        Environment           string
 }
 
 type InvokeResponse struct {

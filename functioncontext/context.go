@@ -51,7 +51,11 @@ type FunctionContext struct {
 	FunctionVersion       string
 	MemoryLimitInMb       int32
 	TimeLimitInMs         int32
-        Environment           map[string]string
+	Environment           map[string]string
+	TencentcloudRegion    string
+	TencentcloudAppID     string
+	TencentcloudUin       string
+	FunctionTrace         string
 }
 
 // An unexported type to be used as the key for types in this package.

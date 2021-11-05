@@ -23,7 +23,11 @@ type InvokeRequest struct {
 	FunctionVersion       string
 	MemoryLimitInMb       int32
 	TimeLimitInMs         int32
-        Environment           string
+	Environment           string
+	TencentcloudRegion    string
+	TencentcloudAppID     string
+	TencentcloudUin       string
+	FunctionTrace         string
 }
 
 type InvokeResponse struct {

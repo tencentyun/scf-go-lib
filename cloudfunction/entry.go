@@ -45,11 +45,11 @@ func Start(handler interface{}) {
 //
 // Handler implementation requires a single "Invoke()" function:
 //
-//  func Invoke(context.Context, []byte) ([]byte, error)
+//	func Invoke(context.Context, []byte) ([]byte, error)
 func StartHandler(handler Handler) {
 	//todo: add env key to compatible with lambda
 	port := os.Getenv("_LAMBDA_SERVER_PORT")
-	lis, err := net.Listen("tcp", "localhost:"+port)
+	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		log.Fatal(err)
 	}
